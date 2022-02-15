@@ -4,7 +4,7 @@
   tasks:
    - name: Create Debian VM 
      vsphere_guest:
-        vcenter_hostname: raspberrypi.home
+     vcenter_hostname: raspberrypi.home
       esxi:
         datacenter: ha-datacenter
         hostname: raspberrypi.home
