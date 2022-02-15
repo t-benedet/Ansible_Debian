@@ -2,36 +2,35 @@
 - hosts: all
   connection: local
   tasks:
-    - vsphere_guest:
+   - name: Create Debian VM 
+     vsphere_guest:
         vcenter_hostname: raspberrypi.home
-        username: root
-        password: berlinTb!59
-        guest: Debian_2
-        state: powered_on
-        vm_extra_config:
+      esxi:
+        datacenter: ha-datacenter
+        hostname: raspberrypi.home
+      username: root
+      password: berlinTb!59
+      guest: Debian_2
+      state: powered_on
+      vm_extra_config:
           vcpu.hotadd: yes
           mem.hotadd:  yes
           notes: This is a test VM
-        vm_disk:
+      vm_disk:
           disk1:
             size_gb: 5
             type: thin
             datastore: Datastore_1
-        # VMs can be put into folders. The value given here is either the full path
-        # to the folder (e.g. production/customerA/lamp) or just the last component
-        # of the path (e.g. lamp):
-        vm_nic:
+      vm_nic:
           nic1:
             type: vmxnet3
             network: VM Network
             network_type: standard
-        vm_hardware:
+      vm_hardware:
           memory_mb: 512
           num_cpus: 1
           osid: debian64Guest
-        vm_cdrom:
+      vm_cdrom:
           type: "iso"
           iso_path: "ISO_VM/debian-11.2.0-arm64-netinst.iso"
-        esxi:
-          datacenter: ha-datacenter
-          hostname: raspberrypi.home
+
