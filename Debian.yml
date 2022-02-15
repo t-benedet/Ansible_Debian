@@ -4,7 +4,6 @@
   gather_facts: no
   tasks:
    - name: Create a VM
-     delegate_to: localhost
      vsphere_guest:
        vcenter_hostname: raspberrypi.home
        esxi:
