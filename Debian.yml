@@ -1,5 +1,6 @@
 ---
 - hosts: all
+  connection: local
   gather_facts: no
   vars_prompt:
    - name: myuser
@@ -14,24 +15,25 @@
      prompt: Enter the Guest VM Name
      private: no
   remote_user: root
+
   tasks:
    - name: Create a VM
      delegate_to: localhost
-       vsphere_guest:
-         vcenter_hostname: raspberrypi.home
+     vsphere_guest:
+#       vcenter_hostname: '{{vc_name}}'
        esxi:
          datacenter: ha-datacenter
          hostname: raspberrypi.home
-         username: root
-         password: berlinTb!59
-         validate_certs: no
-         guest: Debian2
-         state: powered_on
+       username: root
+       password: berlinTb!59
+       validate_certs: no
+       guest: Debian2
+       state: powered_on
        vm_extra_config:
          vcpu.hotadd: yes
          mem.hotadd:  yes
          notes: This is a test VM created using Ansible
-
+#         folder: [datastore1 (4)]
        vm_disk:
          disk1:
            size_gb: 5
