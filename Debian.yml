@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: ESXI
   connection: local
   gather_facts: no
   vars_prompt:
