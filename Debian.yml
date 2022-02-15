@@ -21,14 +21,14 @@
      delegate_to: localhost
      vsphere_guest:
      vcenter_hostname: raspberrypi.home
-      esxi:
+       esxi:
          datacenter: ha-datacenter
          hostname: raspberrypi.home
-       username: root
-       password: berlinTb!59
-       validate_certs: no
-       guest: Debian2
-       state: powered_on
+         username: root
+         password: berlinTb!59
+         validate_certs: no
+         guest: Debian2
+         state: powered_on
        vm_extra_config:
          vcpu.hotadd: yes
          mem.hotadd:  yes
