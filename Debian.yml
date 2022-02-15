@@ -21,7 +21,7 @@
      delegate_to: localhost
      vsphere_guest:
      vcenter_hostname: raspberrypi.home
-       esxi:
+      esxi:
          datacenter: ha-datacenter
          hostname: raspberrypi.home
        username: root
