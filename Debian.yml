@@ -1,5 +1,5 @@
 ---
-- hosts: ESXI
+- hosts: all
   connection: local
   tasks:
     - vsphere_guest:
