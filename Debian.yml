@@ -1,53 +1,35 @@
----
-- hosts: ESXI
-  gather_facts: no
-  vars_prompt:
-   - name: myuser
-     prompt: Enter the UserName
-     private: no
-   - name: mypass
-     prompt: Enter the Password
-   - name: vc_name
-     prompt: Enter the vCenter/ESXi HostName
-     private: no
-   - name: guest_name
-     prompt: Enter the Guest VM Name
-     private: no
-  remote_user: root
 
-  tasks:
-   - name: Create a VM
-     delegate_to: localhost
-     vsphere_guest:
-     vcenter_hostname: raspberrypi.home
-       esxi:
-         datacenter: ha-datacenter
-         hostname: raspberrypi.home
-       username: root
-       password: berlinTb!59
-       validate_certs: no
-       guest: Debian2
-       state: powered_on
-       vm_extra_config:
-         vcpu.hotadd: yes
-         mem.hotadd:  yes
-         notes: This is a test VM created using Ansible
-#         folder: [datastore1 (4)]
-       vm_disk:
-         disk1:
-           size_gb: 5
-           type: thin
-           datastore: Datastore_1
-       vm_nic:
-         nic1:
-           type: vmxnet3
-           network: VM Network
-           network_type: standard
-       vm_hardware:
-         memory_mb: 512
-         num_cpus: 1
-         osid: debianGuest
-         scsi: paravirtual
-         vm_cdrom:
-           type: "iso"
-           iso_path: "ISO_VM/debian-11.2.0-arm64-netinst.iso"
+- vsphere_guest:
+    vcenter_hostname: raspberrypi.home
+    username: root
+    password: berlinTb!59
+    guest: Debian_2
+    state: powered_on
+    vm_extra_config:
+      vcpu.hotadd: yes
+      mem.hotadd:  yes
+      notes: This is a test VM
+    vm_disk:
+      disk1:
+        size_gb: 5
+        type: thin
+        datastore: Datastore_1
+        # VMs can be put into folders. The value given here is either the full path
+        # to the folder (e.g. production/customerA/lamp) or just the last component
+        # of the path (e.g. lamp):
+    vm_nic:
+      nic1:
+        type: vmxnet3
+        network: VM Network
+        network_type: standard
+    vm_hardware:
+      memory_mb: 512
+      num_cpus: 1
+      osid: debian64Guest
+      vm_cdrom:
+        type: "iso"
+        iso_path: "ISO_VM/debian-11.2.0-arm64-netinst.iso"
+    esxi:
+      datacenter: ha-datacenter
+      hostname: raspberrypi.home
+  delegate_to: localhost
