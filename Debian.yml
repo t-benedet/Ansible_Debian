@@ -1,6 +1,5 @@
 ---
 - hosts: all
-  #connection: local
   gather_facts: no
   vars_prompt:
    - name: myuser
