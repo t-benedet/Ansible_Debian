@@ -3,7 +3,7 @@
   connection: local
   tasks:
     - vsphere_guest:
-        vcenter_hostname: 192.168.1.56
+        vcenter_hostname: raspberrypi.home
         username: root
         password: berlinTb!59
         guest: Debian_2
