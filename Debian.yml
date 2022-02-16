@@ -1,5 +1,5 @@
 ---
-- hosts: Infra_01
+- hosts: ESXI
   connection: local
   remote_user: root
   become: true
