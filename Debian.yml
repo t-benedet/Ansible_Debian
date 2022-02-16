@@ -3,7 +3,7 @@
   connection: local
   remote_user: root
   become: true
-   gather_facts: no
+  gather_facts: false
 
   tasks:
    - name: Create a virtual machine on given ESXi hostname
