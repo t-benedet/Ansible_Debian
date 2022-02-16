@@ -1,39 +1,40 @@
 ---
-- hosts: localhost
+- hosts: MyEsxi
   connection: local
-  gather_facts: no
   remote_user: root
-  
+  become: true
+
   tasks:
-   - name: Create a VM
-     vsphere_guest:
-       vcenter_hostname: raspberrypi.home
-       esxi:
-         datacenter: ha-datacenter
-         hostname: raspberrypi.home
+   - name: Create a virtual machine on given ESXi hostname
+     vmware_guest:
+       hostname: 192.168.1.56
        username: root
-       password: 88972207Tb!
+       password: berlinTb!59
        validate_certs: no
-       guest: Debian_2
-       state: powered_on
-       vm_extra_config:
-         vcpu.hotadd: yes
-         mem.hotadd:  yes
-       vm_disk:
-         disk1:
-           size_gb: 5
-           type: thin
-           datastore: Datastore_1
-       vm_nic:
-         nic1:
-           type: vmxnet3
-           network: VM Network
-           network_type: standard
-       vm_hardware:
+       datacenter: ha-datacenter
+       folder: /
+       name: Debian_2
+       state: poweredon
+       guest_id: debian10_64Guest
+      # This is hostname of particular ESXi server on which user wants VM to be deployed
+       esxi_hostname: raspberrypi.home
+       disk:
+       - size_gb: 5
+         type: thin
+         datastore: Datastore_1
+       hardware:
          memory_mb: 512
          num_cpus: 1
-         osid: DebianGuest
          scsi: paravirtual
-         vm_cdrom:
-           type: "iso"
-           iso_path: "ISO_VM/debian-11.2.0-arm64-netinst.iso"
+       cdrom:
+         type: "iso"
+         iso_path: "[Datastore_1] ISO_VM/debian-11.2.0-arm64-netinst.iso"
+         #iso_path: "/Datastore_1/ISO_VM/debian-11.2.0-arm64-netinst.iso"
+       networks:
+       - name: VM Network
+         mac: aa:bb:dd:aa:00:14
+         ip: 192.168.1.79
+         netmask: 255.255.255.0
+         device_type: vmxnet3
+       wait_for_ip_address: yes
+     register: deploy_vm
