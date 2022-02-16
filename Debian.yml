@@ -1,5 +1,5 @@
 ---
-- hosts: MyEsxi
+- hosts: Infra_01
   connection: local
   remote_user: root
   become: true
